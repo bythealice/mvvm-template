@@ -12,16 +12,16 @@ export function OrdersView() {
     <main className="min-h-screen bg-surface p-6 md:p-10">
       <header className="mb-8">
         <div className="flex items-center gap-2">
-          <h1 className="text-2xl font-bold text-text-primary">Pedidos</h1>
+          <h1 data-testid="orders-title" className="text-2xl font-bold text-text-primary">
+            Pedidos
+          </h1>
           {vm.pendingCount > 0 && (
             <span className="rounded-full bg-brand-green/20 px-2.5 py-0.5 text-xs font-semibold text-brand-dark">
               {vm.pendingCount} pendente{vm.pendingCount > 1 ? 's' : ''}
             </span>
           )}
         </div>
-        <p className="mt-1 text-sm text-text-muted">
-          Gerencie aprovações de pedidos
-        </p>
+        <p className="mt-1 text-sm text-text-muted">Gerencie aprovações de pedidos</p>
       </header>
 
       {vm.isLoading && (
