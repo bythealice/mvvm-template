@@ -17,7 +17,10 @@ import { NodeSDK } from '@opentelemetry/sdk-node'
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node'
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http'
 import { Resource } from '@opentelemetry/resources'
-import { SEMRESATTRS_SERVICE_NAME, SEMRESATTRS_SERVICE_VERSION } from '@opentelemetry/semantic-conventions'
+import {
+  SEMRESATTRS_SERVICE_NAME,
+  SEMRESATTRS_SERVICE_VERSION,
+} from '@opentelemetry/semantic-conventions'
 
 export async function register() {
   if (process.env.NEXT_RUNTIME === 'nodejs') {
@@ -81,7 +84,10 @@ export async function GET() {
 
       // atributos customizados — aparecem no Cloud Trace
       span.setAttribute('orders.count', orders.length)
-      span.setAttribute('orders.has_pending', orders.some(o => o.status === 'pending'))
+      span.setAttribute(
+        'orders.has_pending',
+        orders.some((o) => o.status === 'pending')
+      )
 
       return Response.json(orders)
     } catch (error) {
@@ -89,7 +95,7 @@ export async function GET() {
       span.setStatus({ code: SpanStatusCode.ERROR })
       throw error
     } finally {
-      span.end()  // nunca esquecer o end()
+      span.end() // nunca esquecer o end()
     }
   })
 }

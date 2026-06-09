@@ -34,6 +34,7 @@ Basta uma frase se for óbvio. Duas ou três se precisar de contexto.]
 4. [O que deve acontecer — comportamento esperado]
 
 Se houver edge case importante:
+
 - **Cenário de erro**: [como testar o caso de falha]
 
 ## Arquivos que mudaram
@@ -44,6 +45,7 @@ Se houver edge case importante:
 ## Notas pra revisão
 
 [Opcional — só quando tiver algo não-óbvio:]
+
 - Decisão técnica que pode causar dúvida
 - Trade-off consciente
 - TODO que ficou pro próximo PR
@@ -53,6 +55,7 @@ Se houver edge case importante:
 ## Regras do output
 
 **Descreve comportamento, não implementação.**
+
 ```
 ✅ "Adiciona botão de aprovação e rejeição pra pedidos pendentes"
 ❌ "Cria useMutation pra approveOrder e rejectOrder em useOrdersViewModel"
@@ -63,6 +66,7 @@ Se houver edge case importante:
 **Sinaliza quando a mudança é grande.** Se o diff tocar mais de 3 features ou tiver mais de 300 linhas, sugere dividir: "Esse PR está grande — vale dividir em: 1) [X], 2) [Y]. Fica mais fácil de revisar e mais fácil de reverter se precisar."
 
 **Breaking change recebe destaque.**
+
 ```markdown
 > BREAKING: [o que quebra e o que precisa ser atualizado]
 ```
@@ -88,6 +92,7 @@ Task PROJ-47 — solicitação do produto pra dar poder de aprovação aos gesto
 4. Status do pedido deve mudar pra "approved" e os botões devem sumir
 
 Erro de rede:
+
 - Desliga o backend e tenta aprovar → deve aparecer Toast de erro (comportamento existente do http.ts)
 
 ## Arquivos que mudaram

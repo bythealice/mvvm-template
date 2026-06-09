@@ -12,6 +12,7 @@ Lê o contrato OpenAPI gerado pelo `drf-spectacular` do backend Django e mantém
 O backend Django publica um `openapi.json` automaticamente. O front usa esse arquivo pra gerar tipos.
 
 Geração automática (quando quiser rodar manualmente):
+
 ```bash
 npx openapi-typescript http://localhost:8000/api/schema/ -o src/core/api/schema.d.ts
 ```
@@ -46,8 +47,8 @@ export const OrderStatusSchema = z.enum(['pending', 'approved', 'rejected'])
 
 export const OrderSchema = z.object({
   id: z.string().uuid(),
-  client_name: z.string(),        // snake_case: Django DRF usa snake_case
-  amount: z.string(),             // Decimal do Django vem como string!
+  client_name: z.string(), // snake_case: Django DRF usa snake_case
+  amount: z.string(), // Decimal do Django vem como string!
   status: OrderStatusSchema,
   created_at: z.string().datetime(),
   // campos opcionais no OpenAPI viram .optional() aqui:
@@ -75,7 +76,7 @@ import { z } from 'zod'
 
 // GET /orders/ → retorna lista
 export async function fetchOrders(): Promise<Order[]> {
-  const { data } = await http.get('/orders/')          // trailing slash Django DRF
+  const { data } = await http.get('/orders/') // trailing slash Django DRF
   return z.array(OrderSchema).parse(data)
 }
 
@@ -99,16 +100,16 @@ export async function createOrder(body: CreateOrderInput): Promise<Order> {
 
 ## Pegadinhas comuns do Django DRF
 
-| Tipo no Python | Tipo no JSON | Schema Zod |
-|---------------|-------------|------------|
-| `DecimalField` | `"1234.56"` (string!) | `z.string()` ou `z.coerce.number()` |
-| `DateTimeField` | `"2026-06-09T10:00:00Z"` | `z.string().datetime()` |
-| `DateField` | `"2026-06-09"` | `z.string().date()` |
-| `UUIDField` | `"a1b2c3d4-..."` | `z.string().uuid()` |
-| Campo opcional | ausente no JSON | `z.string().optional()` |
-| `null=True` | `null` no JSON | `z.string().nullable()` |
-| Nested serializer | objeto aninhado | `z.object({...})` aninhado |
-| ManyToMany | array de objetos | `z.array(z.object({...}))` |
+| Tipo no Python    | Tipo no JSON             | Schema Zod                          |
+| ----------------- | ------------------------ | ----------------------------------- |
+| `DecimalField`    | `"1234.56"` (string!)    | `z.string()` ou `z.coerce.number()` |
+| `DateTimeField`   | `"2026-06-09T10:00:00Z"` | `z.string().datetime()`             |
+| `DateField`       | `"2026-06-09"`           | `z.string().date()`                 |
+| `UUIDField`       | `"a1b2c3d4-..."`         | `z.string().uuid()`                 |
+| Campo opcional    | ausente no JSON          | `z.string().optional()`             |
+| `null=True`       | `null` no JSON           | `z.string().nullable()`             |
+| Nested serializer | objeto aninhado          | `z.object({...})` aninhado          |
+| ManyToMany        | array de objetos         | `z.array(z.object({...}))`          |
 
 **Trailing slash**: DRF usa `/orders/` e `/orders/:id/` — nunca esquecer a barra final. **`DecimalField` como string** é a pegadinha mais comum: `z.number().parse("1234.56")` lança erro em runtime. Use `z.string()` e converta onde precisar exibir, ou `z.coerce.number()` se preferir já receber como número.
 

@@ -21,7 +21,7 @@ Para uma feature `[nome]`, gera dois artefatos.
 
 Para devs. Foco em arquitetura, tipos, fluxo de dados, decisões tomadas. Alguém que nunca viu essa feature precisa entender o que é, como funciona, e onde mexer.
 
-```markdown
+````markdown
 # [Feature] — Documentação técnica
 
 ## O que é
@@ -31,27 +31,31 @@ Para devs. Foco em arquitetura, tipos, fluxo de dados, decisões tomadas. Algué
 ## Estrutura MVVM
 
 ### View — `src/features/[nome]/components/[Nome]View.tsx`
+
 O que renderiza, quais ações expõe pro usuário, quais `data-testid` tem.
 Não tem lógica — recebe tudo do ViewModel.
 
 ### ViewModel — `src/features/[nome]/hooks/use[Nome]ViewModel.ts`
+
 O que orquestra. Queries usadas, mutations disponíveis, lógica de permissão.
 
 Query keys: `['[nome]']`, `['[nome]', id]`
 
 Retorno exposto:
+
 - `[items]` — lista do recurso
 - `isLoading` — estado de carregamento
 - `can[Ação]` — permissões calculadas (booleano)
 - `on[Ação]` — handlers das ações
 
 ### Model — `src/features/[nome]/services/[nome].service.ts`
+
 Endpoints consumidos:
 
-| Função | Método | Path | Retorno |
-|--------|--------|------|---------|
-| `fetch[Nomes]` | GET | `/[path]/` | `[Nome][]` |
-| `[ação][Nome]` | POST | `/[path]/:id/[ação]/` | `void` |
+| Função         | Método | Path                  | Retorno    |
+| -------------- | ------ | --------------------- | ---------- |
+| `fetch[Nomes]` | GET    | `/[path]/`            | `[Nome][]` |
+| `[ação][Nome]` | POST   | `/[path]/:id/[ação]/` | `void`     |
 
 Schema de validação: `[Nome]Schema` em `types/[nome].types.ts`
 
@@ -64,6 +68,7 @@ type [Nome] = {
   status: '[status-a]' | '[status-b]'
 }
 ```
+````
 
 ## Como testar localmente
 
@@ -74,7 +79,8 @@ type [Nome] = {
 ## Decisões técnicas
 
 [Se houve uma escolha não-óbvia, documenta aqui: por que staleTime de X minutos, por que esse endpoint e não aquele, por que esse schema Zod]
-```
+
+````
 
 ### User guide → `docs/user-guides/[nome].md`
 
@@ -104,7 +110,7 @@ Para usuários e PO. Foco no que fazer, não em como está implementado.
 | Sem itens | Mensagem de lista vazia |
 | Erro de rede | Mensagem de erro com instrução |
 | Ação bem-sucedida | [Feedback visual ou redirecionamento] |
-```
+````
 
 ## Publicando no Confluence via MCP
 
@@ -113,6 +119,7 @@ Para usuários e PO. Foco no que fazer, não em como está implementado.
 **User guide** vai em: espaço da equipe → Guias de usuário → `[Nome da feature]`
 
 Se não tiver certeza do espaço certo, lista os espaços disponíveis antes de publicar:
+
 ```
 Atlassian MCP: list spaces
 ```

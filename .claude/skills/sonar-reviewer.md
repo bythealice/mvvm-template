@@ -10,6 +10,7 @@ Lê o código ou diff e aponta exatamente o que o SonarQube vai reclamar — ant
 ## Bugs (bloqueiam o Quality Gate)
 
 **Promise sem await**
+
 ```ts
 // ❌ Sonar: "Add await to this Promise"
 async function loadData() {
@@ -23,15 +24,17 @@ async function loadData() {
 ```
 
 **Null/undefined não tratado**
+
 ```ts
 // ❌ Sonar: "Object is possibly undefined"
-const name = user.profile.name  // profile pode ser undefined
+const name = user.profile.name // profile pode ser undefined
 
 // ✅
 const name = user.profile?.name ?? 'Sem nome'
 ```
 
 **Comparação não-estrita**
+
 ```ts
 // ❌ Sonar: "Use === instead of =="
 if (status == 'pending') { ... }
@@ -41,6 +44,7 @@ if (status === 'pending') { ... }
 ```
 
 **Return em todos os branches**
+
 ```ts
 // ❌ Sonar: "Function lacks return statement"
 function getLabel(status: string) {
@@ -53,12 +57,14 @@ function getLabel(status: string) {
 ## Vulnerabilidades (bloqueiam o Quality Gate)
 
 **Dados do usuário em innerHTML**
+
 ```tsx
 // ❌ Sonar: "Make sure user content is sanitized"
 <div dangerouslySetInnerHTML={{ __html: userInput }} />
 ```
 
 **Credenciais hardcoded**
+
 ```ts
 // ❌ Sonar: "Hard-coded credentials"
 const token = 'eyJhbGciOiJIUzI1NiJ9...'
@@ -66,6 +72,7 @@ const apiKey = 'sk-prod-abc123'
 ```
 
 **Regex sem timeout (ReDoS)**
+
 ```ts
 // ❌ padrão vulnerável a ReDoS
 const regex = /^(a+)+$/
@@ -78,6 +85,7 @@ const regex = /^(a+)+$/
 **Arquivo longo demais** — mais de 200 linhas em `.ts` ou `.tsx`. Sonar aponta como "This file has N lines, which is greater than 200". Fix: extrair componente, hook, ou utility separado.
 
 **Duplicação de lógica**
+
 ```ts
 // ❌ Mesma lógica em dois lugares
 // orders.service.ts
@@ -95,9 +103,10 @@ function parseResponse<T>(schema: z.ZodType<T>, data: unknown): T {
 ```
 
 **Dead code**
+
 ```ts
 // ❌ Sonar: "Remove this useless assignment"
-const temp = calculateTotal()  // declarado, nunca usado
+const temp = calculateTotal() // declarado, nunca usado
 
 // ❌ Sonar: "Remove this commented code"
 // const old = getOldData()
@@ -105,6 +114,7 @@ const temp = calculateTotal()  // declarado, nunca usado
 ```
 
 **`any` explícito**
+
 ```ts
 // ❌ Sonar: "Unexpected any. Specify a different type"
 function processData(data: any) { ... }

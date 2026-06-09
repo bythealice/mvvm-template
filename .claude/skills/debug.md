@@ -11,16 +11,16 @@ Diagnostica bugs dentro da arquitetura MVVM do projeto. A abordagem é sempre: i
 
 O sintoma na tela raramente aponta direto pra causa raiz. A tabela abaixo mapeia onde olhar primeiro:
 
-| Sintoma | Layer suspeita | Onde olhar |
-|---------|---------------|------------|
-| Dado não aparece na tela | View ou ViewModel | View está consumindo o retorno certo? ViewModel está retornando? |
-| Dado aparece undefined ou vazio | ViewModel ou Model | Query retornou? Zod parsou sem erro? |
-| Erro de rede (4xx, 5xx, CORS) | Model / http | `src/core/api/http.ts`, path do endpoint, headers |
-| Estado não atualiza após ação | ViewModel | `onSuccess` está invalidando a query key certa? |
-| Tipo errado (campo undefined em runtime) | Model / types | Schema Zod não bate com o retorno real da API |
-| Lógica de permissão errada | ViewModel | `canApprove` ou flag equivalente calculado errado |
-| Erro de hidratação SSR | Boundary "use client" | View ou ViewModel sem `'use client'`, ou dado buscado no server |
-| Renderização infinita | ViewModel | `useEffect` com dependência instável, objeto recreado a cada render |
+| Sintoma                                  | Layer suspeita        | Onde olhar                                                          |
+| ---------------------------------------- | --------------------- | ------------------------------------------------------------------- |
+| Dado não aparece na tela                 | View ou ViewModel     | View está consumindo o retorno certo? ViewModel está retornando?    |
+| Dado aparece undefined ou vazio          | ViewModel ou Model    | Query retornou? Zod parsou sem erro?                                |
+| Erro de rede (4xx, 5xx, CORS)            | Model / http          | `src/core/api/http.ts`, path do endpoint, headers                   |
+| Estado não atualiza após ação            | ViewModel             | `onSuccess` está invalidando a query key certa?                     |
+| Tipo errado (campo undefined em runtime) | Model / types         | Schema Zod não bate com o retorno real da API                       |
+| Lógica de permissão errada               | ViewModel             | `canApprove` ou flag equivalente calculado errado                   |
+| Erro de hidratação SSR                   | Boundary "use client" | View ou ViewModel sem `'use client'`, ou dado buscado no server     |
+| Renderização infinita                    | ViewModel             | `useEffect` com dependência instável, objeto recreado a cada render |
 
 ## O que precisa saber antes de diagnosticar
 
@@ -31,11 +31,12 @@ Para dar um diagnóstico útil: o erro exato com stack trace completo e linha, o
 Diz exatamente onde olhar e o que verificar. Sugere `console.warn` temporário quando necessário para isolar o problema — sempre com aviso explícito pra remover depois.
 
 **Query retornando array vazio sem erro**
+
 ```ts
 // Verifica: o service está parsando a resposta certa?
 export async function fetchOrders(): Promise<Order[]> {
   const { data } = await http.get('/orders/')
-  console.warn('[debug] dado bruto da API:', data)  // adiciona temporariamente
+  console.warn('[debug] dado bruto da API:', data) // adiciona temporariamente
   return z.array(OrderSchema).parse(data)
 }
 // → Remove o console.warn após confirmar o dado
@@ -55,6 +56,7 @@ try {
 ```
 
 **Mutation não invalida o cache**
+
 ```ts
 // Verifica se a query key bate exatamente
 const approve = useMutation({
@@ -70,35 +72,38 @@ const approve = useMutation({
 Uma letra diferente na query key e o `invalidateQueries` não encontra nada — o cache não é invalidado e a lista não atualiza.
 
 **Erro de hidratação: "Text content does not match server-rendered HTML"**
+
 ```ts
 // A View ou o ViewModel está sem 'use client'
 // ou está usando localStorage/window sem verificar se está no browser
 
 // ❌ quebrando na hidratação
-const token = localStorage.getItem('token')  // window não existe no server
+const token = localStorage.getItem('token') // window não existe no server
 
 // ✅
 const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
 ```
 
 **Dado undefined mesmo com dado na tela anterior**
+
 ```ts
 // staleTime: 0 + componente remonta = refetch a cada render
 // Verifica se staleTime está explícito:
 useQuery({
   queryKey: ['orders'],
   queryFn: fetchOrders,
-  staleTime: 1000 * 60 * 2,  // se faltar, é staleTime: 0
+  staleTime: 1000 * 60 * 2, // se faltar, é staleTime: 0
 })
 ```
 
 **TypeScript acusa mas o código "funciona"**
+
 ```ts
 // Não ignora erro de tipo com 'as' ou '!'
 // O TypeScript está certo — o runtime vai quebrar num edge case
-const name = user.profile!.name  // ❌ se profile for undefined, quebra
+const name = user.profile!.name // ❌ se profile for undefined, quebra
 
-const name = user.profile?.name ?? 'Padrão'  // ✅
+const name = user.profile?.name ?? 'Padrão' // ✅
 ```
 
 ## O que não faz durante debug

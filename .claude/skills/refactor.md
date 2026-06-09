@@ -32,8 +32,8 @@ export function OrdersView() {
     })
   }, [])
 
-  const pending = orders.filter(o => o.status === 'pending')
-  const canApprove = user.role === 'manager'  // lógica de permissão na View!
+  const pending = orders.filter((o) => o.status === 'pending')
+  const canApprove = user.role === 'manager' // lógica de permissão na View!
 
   return <ul>...</ul>
 }
@@ -46,7 +46,7 @@ export function useOrdersViewModel() {
     staleTime: 1000 * 60 * 2,
   })
 
-  const pendingOrders = orders.filter(o => o.status === 'pending')
+  const pendingOrders = orders.filter((o) => o.status === 'pending')
   const canApprove = true // TODO: contexto de auth
 
   return { pendingOrders, isLoading, canApprove }
@@ -68,7 +68,7 @@ export function useOrdersViewModel() {
   const { data } = useQuery({
     queryKey: ['orders'],
     queryFn: async () => {
-      const { data } = await http.get('/orders/')  // pertence ao service
+      const { data } = await http.get('/orders/') // pertence ao service
       return z.array(OrderSchema).parse(data)
     },
   })
@@ -85,7 +85,7 @@ export async function fetchOrders(): Promise<Order[]> {
 export function useOrdersViewModel() {
   const { data } = useQuery({
     queryKey: ['orders'],
-    queryFn: fetchOrders,  // referência à função do service
+    queryFn: fetchOrders, // referência à função do service
     staleTime: 1000 * 60 * 2,
   })
 }
@@ -156,7 +156,7 @@ useQuery({
 useQuery({
   queryKey: ['orders'],
   queryFn: fetchOrders,
-  staleTime: 1000 * 60 * 2,  // 2 min — dados de lista raramente mudam em segundos
+  staleTime: 1000 * 60 * 2, // 2 min — dados de lista raramente mudam em segundos
 })
 ```
 

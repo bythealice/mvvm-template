@@ -98,11 +98,7 @@ Começa com `'use client'`. Retorna um **objeto nomeado** — não array, não v
 'use client'
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import {
-  fetchProducts,
-  createProduct,
-  deleteProduct,
-} from '../services/products.service'
+import { fetchProducts, createProduct, deleteProduct } from '../services/products.service'
 
 export function useProductsViewModel() {
   const queryClient = useQueryClient()
@@ -128,8 +124,8 @@ export function useProductsViewModel() {
   })
 
   // permissão calculada aqui — View recebe booleano pronto
-  const canCreate = true   // TODO: puxar do contexto de auth real
-  const canDelete = true   // TODO: idem
+  const canCreate = true // TODO: puxar do contexto de auth real
+  const canDelete = true // TODO: idem
 
   return {
     products,
@@ -160,15 +156,8 @@ import { Button } from '@/shared/ui/Button'
 import type { Product } from '../types/product.types'
 
 export function ProductsView() {
-  const {
-    products,
-    isLoading,
-    error,
-    canCreate,
-    canDelete,
-    onDeleteProduct,
-    isDeleting,
-  } = useProductsViewModel()
+  const { products, isLoading, error, canCreate, canDelete, onDeleteProduct, isDeleting } =
+    useProductsViewModel()
 
   if (isLoading) {
     return <div className="p-8 text-gray-500">Carregando...</div>
@@ -182,9 +171,7 @@ export function ProductsView() {
     <section className="p-8">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-semibold text-gray-900">Produtos</h1>
-        {canCreate && (
-          <Button data-testid="btn-create-product">Novo produto</Button>
-        )}
+        {canCreate && <Button data-testid="btn-create-product">Novo produto</Button>}
       </div>
 
       <ul className="space-y-3">
@@ -284,12 +271,12 @@ export function useCreateProductViewModel() {
 
 ## Reconhece qual forma invocar
 
-| Pedido | O que faz |
-|--------|-----------|
-| "cria feature products" | Gera todos os 5 arquivos |
+| Pedido                                             | O que faz                                  |
+| -------------------------------------------------- | ------------------------------------------ |
+| "cria feature products"                            | Gera todos os 5 arquivos                   |
 | "adiciona mutation de criação na feature products" | Estende o service e o ViewModel existentes |
-| "cria tela de detalhe de produto" | Adiciona componente e ViewModel de detalhe |
-| "refatora — tem fetch no componente" | Usa a skill /refactor em vez desta |
+| "cria tela de detalhe de produto"                  | Adiciona componente e ViewModel de detalhe |
+| "refatora — tem fetch no componente"               | Usa a skill /refactor em vez desta         |
 
 ## Formato de entrega
 

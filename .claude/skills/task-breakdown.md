@@ -119,16 +119,16 @@ PERGUNTAS ABERTAS ANTES DO PR
 
 ## Estimativas de referência por tipo de arquivo
 
-| Arquivo | Simples | Médio | Complexo |
-|---------|---------|-------|---------|
-| `*.types.ts` (schema + tipos) | 20min | 40min | 1h |
-| `*.service.ts` (2-3 endpoints) | 30min | 1h | 1h30 |
-| `use*ViewModel.ts` (query + mutations) | 45min | 1h30 | 3h |
-| `*View.tsx` (lista simples) | 45min | 1h30 | 2h30 |
-| `*View.tsx` (form complexo) | 1h30 | 3h | 5h |
-| Vitest (ViewModel) | 45min | 1h30 | 2h |
-| Cypress E2E (fluxo) | 45min | 1h30 | 2h |
-| Thin page (rota) | 10min | — | — |
+| Arquivo                                | Simples | Médio | Complexo |
+| -------------------------------------- | ------- | ----- | -------- |
+| `*.types.ts` (schema + tipos)          | 20min   | 40min | 1h       |
+| `*.service.ts` (2-3 endpoints)         | 30min   | 1h    | 1h30     |
+| `use*ViewModel.ts` (query + mutations) | 45min   | 1h30  | 3h       |
+| `*View.tsx` (lista simples)            | 45min   | 1h30  | 2h30     |
+| `*View.tsx` (form complexo)            | 1h30    | 3h    | 5h       |
+| Vitest (ViewModel)                     | 45min   | 1h30  | 2h       |
+| Cypress E2E (fluxo)                    | 45min   | 1h30  | 2h       |
+| Thin page (rota)                       | 10min   | —     | —        |
 
 ## Como invocar
 

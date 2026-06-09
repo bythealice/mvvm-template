@@ -120,7 +120,7 @@ describe('[Feature] — [descrição do fluxo]', () => {
     // intercepta e retorna fixture — controla o estado sem depender do backend
     cy.intercept('GET', '/api/[resource]/', { fixture: '[resource].json' }).as('get[Resource]')
     cy.visit('/[rota]')
-    cy.wait('@get[Resource]')  // espera o dado carregar antes de cada teste
+    cy.wait('@get[Resource]') // espera o dado carregar antes de cada teste
   })
 
   it('exibe os items após carregar', () => {
@@ -155,7 +155,7 @@ describe('[Feature] — [descrição do fluxo]', () => {
 
   it('desabilita botões durante a mutation', () => {
     cy.intercept('POST', '/api/[resource]/*/[acao]/', (req) => {
-      req.reply({ delay: 300, statusCode: 200 })  // adiciona delay pra capturar o estado
+      req.reply({ delay: 300, statusCode: 200 }) // adiciona delay pra capturar o estado
     }).as('slow[Acao]')
 
     cy.get('[data-testid="btn-[acao]"]').first().click()
@@ -172,7 +172,7 @@ describe('[Feature] — [descrição do fluxo]', () => {
     cy.wait('@empty')
 
     cy.get('[data-testid="[item]-item"]').should('not.exist')
-    cy.contains('Nenhum').should('be.visible')  // ou o texto real da mensagem
+    cy.contains('Nenhum').should('be.visible') // ou o texto real da mensagem
   })
 })
 ```
@@ -207,12 +207,12 @@ Seleciona por `data-testid` — nunca por classe CSS, texto, ou estrutura do DOM
 
 ## O que não testar
 
-| O que é tentador testar | Por que não |
-|------------------------|-------------|
-| Cada prop do componente individualmente | É snapshot test — TypeScript já garante isso |
-| Implementação interna do hook | Testa comportamento — se refatorar sem mudar o comportamento, o teste não pode quebrar |
-| Estilo visual (cor, tamanho de fonte) | CSS não é responsabilidade do teste funcional |
-| Chamadas de rede na View | A View não faz chamadas — o ViewModel faz, e o Vitest cobre isso |
+| O que é tentador testar                 | Por que não                                                                            |
+| --------------------------------------- | -------------------------------------------------------------------------------------- |
+| Cada prop do componente individualmente | É snapshot test — TypeScript já garante isso                                           |
+| Implementação interna do hook           | Testa comportamento — se refatorar sem mudar o comportamento, o teste não pode quebrar |
+| Estilo visual (cor, tamanho de fonte)   | CSS não é responsabilidade do teste funcional                                          |
+| Chamadas de rede na View                | A View não faz chamadas — o ViewModel faz, e o Vitest cobre isso                       |
 
 ## Como invocar
 
