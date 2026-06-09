@@ -194,7 +194,7 @@ Prettier configurado: sem ponto-e-vírgula, aspas simples, trailing commas ES5, 
 
 ---
 
-## Skills disponíveis (.claude/commands/)
+## Skills disponíveis (.claude/skills/)
 
 ```bash
 /mvvm-architect [feature]     # gera feature completa
