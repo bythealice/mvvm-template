@@ -4,6 +4,7 @@
 ########################
 # Node / Package locks #
 ########################
+.husky/_
 node_modules/
 npm-debug.log*
 yarn-debug.log*
