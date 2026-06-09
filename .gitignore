@@ -1,0 +1,161 @@
+# .gitignore — Projetos Node/Next.js
+# Gerado: Ignora artefatos de build, dependências, IDEs, SO e arquivos sensíveis
+
+########################
+# Node / Package locks #
+########################
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.pnp.cjs
+.pnp.js
+.pnpm-store/
+
+################
+# Next.js      #
+################
+.next/
+out/
+.build/
+.next/cache/
+.next/static/
+
+########################
+# Build / Dist / cache  #
+########################
+dist/
+build/
+.cache/
+.cache/**
+.vite/
+parcel-cache/
+.svelte-kit/
+.next/**
+coverage/
+.nyc_output/
+coverage/**
+
+########################
+# TypeScript / Editor   #
+########################
+*.tsbuildinfo
+.vscode/
+*.code-workspace
+.idea/
+*.sublime-workspace
+*.sublime-project
+.history/
+
+########################
+# Logs / Debug          #
+########################
+logs/
+*.log
+npm-debug.log*
+debug.log*
+
+########################
+# Environment / secrets #
+########################
+.env
+.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+# manter um exemplo comitado
+!.env.example
+
+########################
+# OS-specific           #
+########################
+.DS_Store
+Thumbs.db
+desktop.ini
+Icon?
+
+########################
+# Testing / Coverage    #
+########################
+# Test outputs and coverage reports
+jest-cache/
+.vitest/
+coverage/
+coverage/**
+.nyc_output/
+# Cypress artifacts
+cypress/videos/
+cypress/screenshots/
+cypress/results/
+# Test reports
+test-results/
+reports/
+
+########################
+# Tooling / caches      #
+########################
+.eslintcache
+.cache-loader
+.next-env.d.ts
+.terraform/
+.terraform.tfstate*
+.terraform.lock.hcl
+
+########################
+# IDEs / Editors extras #
+########################
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+########################
+# Language runtimes     #
+########################
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.env-venv/
+
+# Ruby
+.bundle/
+log/
+tmp/
+
+# Go
+vendor/
+
+########################
+# Misc / Dev services   #
+########################
+.localhistory/
+.serverless/
+.vercel/
+.netlify/
+.caches/
+.rushstack/
+
+########################
+# IDE Extensions / misc #
+########################
+*.swo
+*.swp
+
+# Backup files
+*~
+*.bak
+
+# Lockfiles created by editors/IDEs
+*.lock
+
+# Keep this file tracked
+# Fim
+
